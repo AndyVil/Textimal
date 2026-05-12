@@ -177,7 +177,7 @@
         
         <button id="gutter-btn">Ln No. Sticky</button>
 		<button id="wrap-btn">Wrap: Off</button>
-		<button id="spell-btn">Spellcheck: Off</button>
+		<!--<button id="spell-btn">Spellcheck: Off</button>-->
 		<button id="theme-btn">Light</button>
 		
     </nav>
@@ -204,9 +204,9 @@
             indentUnit: 4,
 			lineWrapping: false,
 		    matchBrackets: true,
-		    autoCloseBrackets: true,
-			inputStyle: "contenteditable",
-    		spellcheck: false
+		    autoCloseBrackets: true//,
+			//inputStyle: "contenteditable",
+    		//spellcheck: false
         });
 
         setTimeout(() => editor.refresh(), 50);
@@ -341,19 +341,19 @@
 		    });
 		}
 
-		const spellBtn = document.getElementById('spell-btn');
-		let isSpellcheckOn = false;
+		//const spellBtn = document.getElementById('spell-btn');
+		//let isSpellcheckOn = false;
 		
-		spellBtn.addEventListener('click', () => {
-		    isSpellcheckOn = !isSpellcheckOn;
-		    editor.setOption("spellcheck", isSpellcheckOn);
-		    spellBtn.textContent = isSpellcheckOn ? "Spellcheck: On" : "Spellcheck: Off";
+		//spellBtn.addEventListener('click', () => {
+		//    isSpellcheckOn = !isSpellcheckOn;
+		//    editor.setOption("spellcheck", isSpellcheckOn);
+		//    spellBtn.textContent = isSpellcheckOn ? "Spellcheck: On" : "Spellcheck: Off";
 		
-		    const inputField = editor.getInputField();
-		    inputField.setAttribute("spellcheck", isSpellcheckOn);
-		    inputField.blur();
-		    inputField.focus();
-		});
+		//    const inputField = editor.getInputField();
+		//    inputField.setAttribute("spellcheck", isSpellcheckOn);
+		//    inputField.blur();
+		//    inputField.focus();
+		//});
 				
 	</script>
 </body>
