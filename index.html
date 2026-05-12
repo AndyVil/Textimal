@@ -161,10 +161,21 @@
 
         setTimeout(() => editor.refresh(), 50);
 
+		const savedContent = localStorage.getItem('textimal_content');
+		if (savedContent) {
+		    editor.setValue(savedContent);
+		}
+		
+		editor.on('change', () => {
+		    localStorage.setItem('textimal_content', editor.getValue());
+		});
+
         const langSelect = document.getElementById('lang-select');
         const fileDisplay = document.getElementById('filename-display');
-        let currentFilename = "filename.txt";
-
+        let currentFilename = localStorage.getItem('textimal_filename') || "filename.txt";
+		fileDisplay.textContent = currentFilename;
+		localStorage.setItem('textimal_filename', currentFilename);
+		
         langSelect.addEventListener('change', () => {
             editor.setOption("mode", langSelect.value);
         });
@@ -215,13 +226,14 @@
             e.target.value = ''; 
         });
 
-        fileDisplay.addEventListener('click', () => {
-            const newName = prompt("Filename:", currentFilename);
-            if (newName && newName.trim() !== "") {
-                currentFilename = newName.trim();
-                fileDisplay.textContent = currentFilename;
-            }
-        });
+		fileDisplay.addEventListener('click', () => {
+		    const newName = prompt("Filename:", currentFilename);
+		    if (newName && newName.trim() !== "") {
+		        currentFilename = newName.trim();
+		        fileDisplay.textContent = currentFilename;
+		        localStorage.setItem('textimal_filename', currentFilename);
+		    }
+		});
 
         document.getElementById('save-btn').addEventListener('click', () => {
             const blob = new Blob([editor.getValue()], {type: 'text/plain;charset=utf-8'});
@@ -244,15 +256,6 @@
 		        console.error('Copy Error: ', err);
 		    });
 		});
-
-		const wrapBtn = document.getElementById('wrap-btn');
-		let isWrapped = false;
-		
-		wrapBtn.addEventListener('click', () => {
-		    isWrapped = !isWrapped;
-		    editor.setOption("lineWrapping", isWrapped);
-		    wrapBtn.textContent = isWrapped ? "Wrap: On" : "Wrap: Off";
-		});
 		
         document.getElementById('theme-btn').addEventListener('click', (e) => {
             const isDark = editor.getOption("theme") === "monokai";
@@ -270,6 +273,17 @@
                 c.style.borderColor = isDark ? "#ccc" : "#444";
             });
         });
+
+		const wrapBtn = document.getElementById('wrap-btn');
+		let isWrapped = false;
+		
+		wrapBtn.addEventListener('click', () => {
+		    isWrapped = !isWrapped;
+		    editor.setOption("lineWrapping", isWrapped);
+		    wrapBtn.textContent = isWrapped ? "Wrap: On" : "Wrap: Off";
+		});
+
+		
     </script>
 </body>
 </html>
