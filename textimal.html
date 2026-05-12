@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<link rel="icon" type="image/x-icon" href="https://staging.svgrepo.com/show/431534/code.svg">
+    <meta name="description" content="Online Notebloc - Minimalist and private text editor with syntax highlighting. TXT, MD, Python, JS, TS, Rust, SQL, BASH, C, YML, XML, HTML, CSS">
+	<title>Textimal</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/addon/selection/active-line.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/htmlmixed/htmlmixed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/markdown/markdown.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/shell/shell.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/sql/sql.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/rust/rust.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/properties/properties.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/yaml/yaml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/dockerfile/dockerfile.min.js"></script>
+
+    <style>
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: flex; 
+            flex-direction: column; 
+            overflow: hidden;
+            font-family: 'Roboto Mono', monospace;
+            background: #272822;
+        }
+
+        #top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            background: #1e1e1e;
+            border-bottom: 1px solid #333;
+            flex-shrink: 0; 
+            z-index: 10;
+        }
+
+        #top-bar > * {
+            height: 28px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+        }
+
+        button, select { 
+            background: #333; 
+            color: #ccc; 
+            border: 1px solid #444; 
+            border-radius: 3px;
+            padding: 0 8px; 
+            cursor: pointer; 
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            outline: none;
+        }
+
+        button:hover, select:hover { background: #444; color: #fff; }
+        
+        #filename-display {
+            color: #fff;
+            padding: 0 5px;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        #file-input { display: none; }
+
+        #editor-container {
+            flex: 1;
+            position: relative;
+            min-height: 0; 
+            width: 100%;
+        }
+
+        .CodeMirror { 
+            position: absolute;
+            top: 0; bottom: 0; left: 0; right: 0;
+            height: 100%; 
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+        }
+
+        .CodeMirror-gutters { min-width: 45px !important; border-right: 1px solid #444 !important; }
+        .CodeMirror-linenumber { min-width: 30px !important; text-align: right; }
+    </style>
+</head>
+<body>
+
+    <nav id="top-bar">
+        <button id="open-btn">Open</button>
+        <button id="save-btn">Save</button>
+		<button id="copy-btn">Copy</button>
+
+        <select id="lang-select">
+            <option value="text/plain" data-ext="txt">TXT</option>
+            <option value="javascript" data-ext="js">JavaScript</option>
+            <option value="text/typescript" data-ext="ts">TypeScript</option>
+            <option value="python" data-ext="py">Python</option>
+            <option value="shell" data-ext="sh">Bash</option>
+            <option value="text/html" data-ext="html">HTML</option>
+            <option value="css" data-ext="css">CSS</option>
+            <option value="application/json" data-ext="json">JSON</option>
+            <option value="markdown" data-ext="md">Markdown</option>
+            <option value="sql" data-ext="sql">SQL</option>
+            <option value="rust" data-ext="rs">Rust</option>
+            <option value="text/x-csrc" data-ext="c">C</option>
+            <option value="text/x-c++src" data-ext="cpp">C++</option>
+            <option value="text/x-csharp" data-ext="cs">C#</option>
+            <option value="properties" data-ext="ini">INI</option>
+            <option value="properties" data-ext="env">.env</option>
+            <option value="properties" data-ext="conf">CONF</option>
+            <option value="yaml" data-ext="yml">YAML</option>
+            <option value="xml" data-ext="xml">XML</option>
+            <option value="dockerfile" data-ext="dockerfile">Dockerfile</option>
+            <option value="shell" data-ext="gitignore">.gitignore</option>
+        </select>
+        
+        <button id="gutter-btn">Ln No. Sticky</button>
+        <button id="theme-btn">Light</button>
+		<input type="file" id="file-input">
+		<span id="filename-display" title="Rename">filename</span>
+
+    </nav>
+
+    <div id="editor-container">
+        <textarea id="editor"></textarea>
+    </div>
+
+    <script>
+        const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
+            lineNumbers: true,
+            fixedGutter: true,
+            styleActiveLine: true,
+            theme: "monokai",
+            mode: "text/plain",
+            indentUnit: 4,
+            lineWrapping: false
+        });
+
+        setTimeout(() => editor.refresh(), 50);
+
+        const langSelect = document.getElementById('lang-select');
+        const fileDisplay = document.getElementById('filename-display');
+        let currentFilename = "filename.txt";
+
+        langSelect.addEventListener('change', () => {
+            editor.setOption("mode", langSelect.value);
+        });
+
+        // Line Numbers State
+        const gutterBtn = document.getElementById('gutter-btn');
+        let gutterState = 0; // 0: Sticky, 1: Fixed, 2: Off
+        const gutterConfigs = [
+            { label: "Ln No. Sticky", lineNumbers: true, fixedGutter: true },
+            { label: "Ln No. Fixed", lineNumbers: true, fixedGutter: false },
+            { label: "Ln No. Off", lineNumbers: false, fixedGutter: true }
+        ];
+
+        gutterBtn.addEventListener('click', () => {
+            gutterState = (gutterState + 1) % 3;
+            const config = gutterConfigs[gutterState];
+            gutterBtn.textContent = config.label;
+            editor.setOption("lineNumbers", config.lineNumbers);
+            editor.setOption("fixedGutter", config.fixedGutter);
+        });
+
+        document.getElementById('open-btn').addEventListener('click', () => document.getElementById('file-input').click());
+        
+        document.getElementById('file-input').addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            currentFilename = file.name;
+            fileDisplay.textContent = currentFilename;
+
+            const reader = new FileReader();
+            reader.onload = (ev) => {
+                editor.setValue(ev.target.result);
+                
+                // Extraction and dinamic configuration for data-ext
+                let ext = currentFilename.split('.').pop().toLowerCase();
+                if (currentFilename.startsWith('.')) {
+                    ext = currentFilename.substring(1).toLowerCase(); // .env handling
+                }
+                
+                const matchedOption = Array.from(langSelect.options).find(opt => opt.getAttribute('data-ext') === ext);
+                if (matchedOption) {
+                    langSelect.value = matchedOption.value;
+                    editor.setOption("mode", matchedOption.value);
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = ''; 
+        });
+
+        fileDisplay.addEventListener('click', () => {
+            const newName = prompt("Filename:", currentFilename);
+            if (newName && newName.trim() !== "") {
+                currentFilename = newName.trim();
+                fileDisplay.textContent = currentFilename;
+            }
+        });
+
+        document.getElementById('save-btn').addEventListener('click', () => {
+            const blob = new Blob([editor.getValue()], {type: 'text/plain;charset=utf-8'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = currentFilename;
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        });
+
+		document.getElementById('copy-btn').addEventListener('click', () => {
+				const content = document.getElementById("editor").value // textarea editor
+				navigator.clipboard.writeText(content)
+				.then(() => {
+					console.log('Copy!');
+				})
+				.catch(err => {
+					console.error('Copy error: ', err);
+				});
+		});
+
+        document.getElementById('theme-btn').addEventListener('click', (e) => {
+            const isDark = editor.getOption("theme") === "monokai";
+            editor.setOption("theme", isDark ? "default" : "monokai");
+            e.target.textContent = isDark ? "Dark" : "Light";
+            
+            document.getElementById('top-bar').style.background = isDark ? "#ddd" : "#1e1e1e";
+            document.getElementById('top-bar').style.borderBottomColor = isDark ? "#ccc" : "#333";
+            fileDisplay.style.color = isDark ? "#000" : "#fff";
+            
+            const controls = document.querySelectorAll('button, select');
+            controls.forEach(c => {
+                c.style.background = isDark ? "#eee" : "#333";
+                c.style.color = isDark ? "#000" : "#ccc";
+                c.style.borderColor = isDark ? "#ccc" : "#444";
+            });
+        });
+    </script>
+</body>
+</html>
