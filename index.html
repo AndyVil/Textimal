@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="icon" type="image/x-icon" href="https://staging.svgrepo.com/show/431534/code.svg">
+	<link rel="icon" type="image/x-icon" href="https://www.svgrepo.com/show/471029/atom-02.svg">
 	<link rel="manifest" href="manifest.json">
     <meta name="description" content="Online Notebloc - Minimalist and private text editor with syntax highlighting. TXT, MD, Python, JS, TS, Rust, SQL, BASH, C, YML, XML, HTML, CSS">
 	<title>Textimal</title>
@@ -145,7 +145,7 @@
 
     <nav id="top-bar">
 		<button id="menu-toggle">☰</button>
-		<span id="filename-display" title="Rename">filename</span>
+		<span id="filename-display" title="Rename">new</span>
 		<input type="file" id="file-input">
 		<button id="reset-btn">New</button>
         <button id="open-btn">Open</button>
@@ -223,7 +223,7 @@
 
         const langSelect = document.getElementById('lang-select');
         const fileDisplay = document.getElementById('filename-display');
-        let currentFilename = localStorage.getItem('textimal_filename') || "filename.txt";
+        let currentFilename = localStorage.getItem('textimal_filename') || "new.txt";
 		fileDisplay.textContent = currentFilename;
 		localStorage.setItem('textimal_filename', currentFilename);
 		
@@ -344,14 +344,11 @@
 
 		document.getElementById('reset-btn').addEventListener('click', () => {
 		    if (confirm("Delete all content and reset file?")) {
-		        // Limpiar editor
 		        editor.setValue("");
 		        
-		        // Resetear nombre de archivo
-		        currentFilename = "filename.txt";
+		        currentFilename = "new.txt";
 		        fileDisplay.textContent = currentFilename;
 		        
-		        // Limpiar persistencia local
 		        localStorage.removeItem('textimal_content');
 		        localStorage.setItem('textimal_filename', currentFilename);
 		    }
