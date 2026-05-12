@@ -146,6 +146,7 @@
     <nav id="top-bar">
 		<button id="menu-toggle">☰</button>
 		<span id="filename-display" title="Rename">filename</span>
+		<input type="file" id="file-input">
         <button id="open-btn">Open</button>
         <button id="save-btn">Save</button>
 		<button id="copy-btn">Copy</button>
@@ -175,9 +176,9 @@
         </select>
         
         <button id="gutter-btn">Ln No. Sticky</button>
-        <button id="theme-btn">Light</button>
-		<input type="file" id="file-input">
 		<button id="wrap-btn">Wrap: Off</button>
+		<button id="spell-btn">Spellcheck: Off</button>
+		<button id="theme-btn">Light</button>
 		
     </nav>
 
@@ -204,6 +205,8 @@
 			lineWrapping: false,
 		    matchBrackets: true,
 		    autoCloseBrackets: true
+			inputStyle: "contenteditable",
+    		spellcheck: false
         });
 
         setTimeout(() => editor.refresh(), 50);
@@ -337,6 +340,15 @@
 	            	.catch(err => console.error('Error al registrar Service Worker', err));
 		    });
 		}
+
+		const spellBtn = document.getElementById('spell-btn');
+		let isSpellcheckOn = false;
+		
+		spellBtn.addEventListener('click', () => {
+		    isSpellcheckOn = !isSpellcheckOn;
+		    editor.setOption("spellcheck", isSpellcheckOn);
+		    spellBtn.textContent = isSpellcheckOn ? "Spellcheck: On" : "Spellcheck: Off";
+		});
 		
     </script>
 </body>
