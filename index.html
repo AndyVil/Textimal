@@ -147,6 +147,7 @@
 		<button id="menu-toggle">☰</button>
 		<span id="filename-display" title="Rename">filename</span>
 		<input type="file" id="file-input">
+		<button id="reset-btn">New</button>
         <button id="open-btn">Open</button>
         <button id="save-btn">Save</button>
 		<button id="copy-btn">Copy</button>
@@ -341,6 +342,20 @@
 		    });
 		}
 
+		document.getElementById('reset-btn').addEventListener('click', () => {
+		    if (confirm("¿Borrar todo el contenido y reiniciar archivo?")) {
+		        // Limpiar editor
+		        editor.setValue("");
+		        
+		        // Resetear nombre de archivo
+		        currentFilename = "filename.txt";
+		        fileDisplay.textContent = currentFilename;
+		        
+		        // Limpiar persistencia local
+		        localStorage.removeItem('textimal_content');
+		        localStorage.setItem('textimal_filename', currentFilename);
+		    }
+		});
 		//const spellBtn = document.getElementById('spell-btn');
 		//let isSpellcheckOn = false;
 		
