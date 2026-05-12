@@ -18,5 +18,6 @@ Color Brackets \
 Resposive \
 PWA \
 Offline \
+Native SpellCheck (Bug - Disabled)
 
 > You can download the file and run it locally, but an internet connection is required for first time because it uses CDN libraries.
