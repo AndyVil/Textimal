@@ -110,7 +110,7 @@
     <nav id="top-bar">
         <button id="open-btn">Open</button>
         <button id="save-btn">Save</button>
-		<!--<button id="copy-btn">Copy</button>-->
+		<button id="copy-btn">Copy</button>
 
         <select id="lang-select">
             <option value="text/plain" data-ext="txt">TXT</option>
@@ -233,17 +233,17 @@
             document.body.removeChild(a);
         });
 
-		//document.getElementById('copy-btn').addEventListener('click', () => {
-		//		const content = document.getElementById("editor").value // textarea editor
-		//		navigator.clipboard.writeText(content)
-		//		.then(() => {
-		//			console.log('Copy!');
-		//		})
-		//		.catch(err => {
-		//			console.error('Copy error: ', err);
-		//		});
-		//});
-
+		document.getElementById('copy-btn').addEventListener('click', () => {
+		    const content = editor.getValue();
+		    navigator.clipboard.writeText(content)
+		    .then(() => {
+		        console.log('Copy!');
+		    })
+		    .catch(err => {
+		        console.error('Copy Error: ', err);
+		    });
+		});
+		
         document.getElementById('theme-btn').addEventListener('click', (e) => {
             const isDark = editor.getOption("theme") === "monokai";
             editor.setOption("theme", isDark ? "default" : "monokai");
