@@ -44,29 +44,28 @@
 		@media (max-width: 768px) {
 		    #menu-toggle {
 		        display: block;
-		        margin-left: auto; /* Empuja el botón a la derecha */
-		    }
+			}
 		
-		    #top-bar {
-		        flex-wrap: wrap; /* Permite que los elementos fluyan hacia abajo */
-		    }
+			#top-bar {
+			    flex-wrap: wrap; /* Permite que los elementos fluyan hacia abajo */
+			}
 		
-		    /* Oculta todos los botones excepto el toggle por defecto en móvil */
-		    #top-bar button:not(#menu-toggle) {
-		        display: none;
-		        width: 100%;
+			/* Oculta todos los botones excepto el toggle por defecto en móvil */
+			#top-bar button:not(#menu-toggle) {
+			     display: none;
+			    width: 100%;
 		        margin: 4px 0;
 		        text-align: left; /* Opcional: mejora la legibilidad en lista */
-		    }
+			}
 		
 		    /* Muestra los botones cuando el nav tiene la clase 'expanded' */
 		    #top-bar.expanded button:not(#menu-toggle) {
 		        display: block;
 		    }
 		    
-		    /* El span del nombre del archivo se mantiene visible y a la izquierda */
+		   /* El span del nombre del archivo se mantiene visible y a la izquierda */
 		    #file-display {
-		        width: auto;
+				width: auto;
 		    }
 		}
 		
@@ -147,7 +146,7 @@
 <body>
 
     <nav id="top-bar">
-		<button id="menu-toggle">▼</button>
+		<button id="menu-toggle">☰</button>
 		<span id="filename-display" title="Rename">filename</span>
         <button id="open-btn">Open</button>
         <button id="save-btn">Save</button>
@@ -194,7 +193,7 @@
 		
 		menuToggle.addEventListener('click', () => {
 		    topBar.classList.toggle('expanded');
-		    menuToggle.textContent = topBar.classList.contains('expanded') ? '▲' : '▼';
+		    menuToggle.textContent = topBar.classList.contains('expanded') ? '✕' : '☰';
 		});
 		
         const editor = CodeMirror.fromTextArea(document.getElementById("editor"), {
