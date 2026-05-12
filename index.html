@@ -34,7 +34,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/mode/dockerfile/dockerfile.min.js"></script>
 
     <style>
-		#menu-toggle {
+		#top-bar #menu-toggle {
 		    display: none;
 		    background: transparent;
 		    font-size: 1.2rem;
@@ -43,12 +43,12 @@
 		}
 		
 		@media (max-width: 768px) {
-		    #menu-toggle {
+		    #top-bar #menu-toggle {
 		        display: block;
 		    }
 		
-			#top-bar {
-		    	flex-wrap: wrap;
+		    #top-bar {
+		        flex-wrap: wrap;
 		    }
 		
 		    #top-bar button:not(#menu-toggle) {
@@ -66,7 +66,7 @@
 		        width: auto;
 		    }
 		}
-		
+
         body, html { 
             margin: 0; 
             padding: 0; 
