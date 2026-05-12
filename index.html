@@ -108,6 +108,7 @@
 <body>
 
     <nav id="top-bar">
+		<span id="filename-display" title="Rename">filename</span>
         <button id="open-btn">Open</button>
         <button id="save-btn">Save</button>
 		<button id="copy-btn">Copy</button>
@@ -139,8 +140,8 @@
         <button id="gutter-btn">Ln No. Sticky</button>
         <button id="theme-btn">Light</button>
 		<input type="file" id="file-input">
-		<span id="filename-display" title="Rename">filename</span>
-
+		<button id="wrap-btn">Wrap: Off</button>
+		
     </nav>
 
     <div id="editor-container">
@@ -242,6 +243,15 @@
 		    .catch(err => {
 		        console.error('Copy Error: ', err);
 		    });
+		});
+
+		const wrapBtn = document.getElementById('wrap-btn');
+		let isWrapped = false;
+		
+		wrapBtn.addEventListener('click', () => {
+		    isWrapped = !isWrapped;
+		    editor.setOption("lineWrapping", isWrapped);
+		    wrapBtn.textContent = isWrapped ? "Wrap: On" : "Wrap: Off";
 		});
 		
         document.getElementById('theme-btn').addEventListener('click', (e) => {
