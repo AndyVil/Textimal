@@ -39,33 +39,31 @@
 		    background: transparent;
 		    font-size: 1.2rem;
 		    padding: 0 10px;
+		    border: none;
 		}
 		
 		@media (max-width: 768px) {
 		    #menu-toggle {
 		        display: block;
-			}
+		    }
 		
 			#top-bar {
-			    flex-wrap: wrap; /* Permite que los elementos fluyan hacia abajo */
-			}
+		    	flex-wrap: wrap;
+		    }
 		
-			/* Oculta todos los botones excepto el toggle por defecto en móvil */
-			#top-bar button:not(#menu-toggle) {
-			     display: none;
-			    width: 100%;
+		    #top-bar button:not(#menu-toggle) {
+		        display: none;
+		        width: 100%;
 		        margin: 4px 0;
-		        text-align: left; /* Opcional: mejora la legibilidad en lista */
-			}
+		        text-align: left;
+		    }
 		
-		    /* Muestra los botones cuando el nav tiene la clase 'expanded' */
 		    #top-bar.expanded button:not(#menu-toggle) {
 		        display: block;
 		    }
 		    
-		   /* El span del nombre del archivo se mantiene visible y a la izquierda */
 		    #file-display {
-				width: auto;
+		        width: auto;
 		    }
 		}
 		
