@@ -1,0 +1,16 @@
+{
+    "name": "Textimal",
+    "short_name": "Textimal",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#272822",
+    "theme_color": "#1e1e1e",
+    "icons": [
+        {
+            "src": "https://staging.svgrepo.com/show/431534/code.svg",
+            "sizes": "192x192",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}
