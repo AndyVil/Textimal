@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -348,8 +348,13 @@
 		    isSpellcheckOn = !isSpellcheckOn;
 		    editor.setOption("spellcheck", isSpellcheckOn);
 		    spellBtn.textContent = isSpellcheckOn ? "Spellcheck: On" : "Spellcheck: Off";
-		});
 		
-    </script>
+		    const inputField = editor.getInputField();
+		    inputField.setAttribute("spellcheck", isSpellcheckOn);
+		    inputField.blur();
+		    inputField.focus();
+		});
+				
+	</script>
 </body>
 </html>
