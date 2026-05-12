@@ -3,6 +3,8 @@ Online Notebloc - Minimalist and private text editor with syntax highlighting. T
 
 You can download the file and run it locally, but an internet connection is required because it uses CDN libraries.
 
+A CodeMirror Implementation...
+
 Line Numbers
 Local storage
 Open
