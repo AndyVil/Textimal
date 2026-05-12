@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="icon" type="image/x-icon" href="https://staging.svgrepo.com/show/431534/code.svg">
+	<link rel="manifest" href="manifest.json">
     <meta name="description" content="Online Notebloc - Minimalist and private text editor with syntax highlighting. TXT, MD, Python, JS, TS, Rust, SQL, BASH, C, YML, XML, HTML, CSS">
 	<title>Textimal</title>
-
-
+	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.13/theme/monokai.min.css">
     
@@ -288,6 +288,13 @@
 		    wrapBtn.textContent = isWrapped ? "Wrap: On" : "Wrap: Off";
 		});
 
+		if ('serviceWorker' in navigator) {
+	   		window.addEventListener('load', () => {
+	        	navigator.serviceWorker.register('sw.js')
+	            	.then(reg => console.log('Service Worker registrado', reg.scope))
+	            	.catch(err => console.error('Error al registrar Service Worker', err));
+		    });
+		}
 		
     </script>
 </body>
