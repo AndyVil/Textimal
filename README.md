@@ -20,4 +20,6 @@ PWA \
 Offline \
 Native SpellCheck (Bug - Disabled)
 
+Next feature: Encoding
+
 > You can download the file and run it locally, but an internet connection is required for first time because it uses CDN libraries.
